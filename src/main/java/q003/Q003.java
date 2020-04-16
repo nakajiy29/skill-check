@@ -1,6 +1,11 @@
 package q003;
 
-import java.io.InputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Q003 集計と並べ替え
@@ -26,12 +31,37 @@ ignorance=1
  * http://eikaiwa.dmm.com/blog/4690/
  */
 public class Q003 {
+    public final static String path = "/Applications/Eclipse_2020-03.app/Contents/workspace/skill-check/src/main/resources/q003/data.txt";
+
+    public static void main(String[] args) throws IOException {
+        String text = Q003.openDataFile();
+        String textFormat = text.replaceAll("[.,;]", "");
+        String br = System.getProperty("line.separator");
+        textFormat = textFormat.replaceAll(br, " ");
+        String[] textArray = textFormat.split(" ");
+        Arrays.sort(textArray, String.CASE_INSENSITIVE_ORDER);
+        String beforeWord = "";
+        int index = 0;
+        for (String word : textArray) {
+            if (!beforeWord.isEmpty() && !Objects.equals(beforeWord, word)) {
+                System.out.println(beforeWord + "=" + index);
+                index = 0;
+            }
+            beforeWord = word;
+            index++;
+        }
+    }
     /**
      * データファイルを開く
      * resources/q003/data.txt
+     * @throws IOException
      */
-    private static InputStream openDataFile() {
-        return Q003.class.getResourceAsStream("data.txt");
+    private static String openDataFile() throws IOException {
+        Path file = Paths.get(path);
+        String text = Files.readString(file);
+        return text;
     }
+
 }
 // 完成までの時間: xx時間 xx分
+// 16:45~

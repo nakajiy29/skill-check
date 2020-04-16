@@ -45,5 +45,22 @@ public class Q002 {
             "14,林",
             "9,清水"
     };
+
+    /**
+     * mein method
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+        String[] resultArray = new String[21];
+        for (int i = 0; i < dataList.length; i++) {
+            String[] strList = dataList[i].split(",");
+            int index = Integer.valueOf(strList[0]);
+            resultArray[index] =  strList[1];
+        }
+        for (int j = 1; j < resultArray.length; j++) {
+            System.out.println(j + "," + resultArray[j]);
+        }
+    }
 }
-// 完成までの時間: xx時間 xx分
+// 完成までの時間: 00時間 15分
