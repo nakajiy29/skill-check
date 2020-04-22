@@ -51,6 +51,7 @@ public class ListManager {
     public void checkResult() {
         int data = dataList[0];
         for (int i = 1; i < dataList.length; i++) {
+            System.out.println("data " + dataList[i]);
             if (data > dataList[i]) {
                 throw new RuntimeException("ソートされていない: [" + (i - 1) + "]=" + data + ", [" + i + "]=" + dataList[i]);
             }
