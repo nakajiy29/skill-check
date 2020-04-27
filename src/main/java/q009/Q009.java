@@ -1,5 +1,7 @@
 package q009;
 
+import java.util.Scanner;
+
 /**
  * Q009 重い処理を別スレッドで実行
  *
@@ -22,5 +24,33 @@ package q009;
 12345: 3,5,823
  */
 public class Q009 {
+    private static String value;
+    public static void main(String[] args) throws InterruptedException {
+        System.out.println("入力) ");
+        Scanner s = new Scanner(System.in);
+        try {
+            Thread myTask = new Thread(new MyTask());
+            myTask.start();
+            while (s.hasNext()) {
+                System.out.println("入力) ");
+                value = s.next();
+                System.out.println("isAlive: " + myTask.isAlive());
+                if (myTask.isAlive()) {
+                    System.out.println(value + ": 実行中");
+                    Thread.sleep(500L);
+                } else {
+                    System.out.println(value + ": 実行中ではない");
+                    myTask = new Thread(new MyTask());
+                    myTask.start();
+                }
+            }
+        } finally {
+            s.close();
+        }
+    }
+
+    public static String getValue() {
+        return value;
+    }
 }
 // 完成までの時間: xx時間 xx分
